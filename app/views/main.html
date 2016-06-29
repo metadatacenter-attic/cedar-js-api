@@ -1,0 +1,23 @@
+<div ng-class="{'container-fluid': $root.fluid, 'container': !$root.fluid}">
+
+  <div ng-class="{'row-fluid': $root.fluid, 'row': !$root.fluid}">
+
+    <textarea style="margin-top:50px; margin-bottom:20px" id="loggerOutput">{{$root.logger.content}}</textarea>
+
+    <uib-tabset active="activeJustified" justified="false">
+      <uib-tab index="0" heading="{{'title.schema' | translate}}">
+        <textarea id="schemaOutput">{{vm.schema | json : spacing}}</textarea>
+      </uib-tab>
+      <uib-tab index="1" heading="{{'title.schemaRaw' | translate}}">
+        <textarea id="schemaRawOutput">{{vm.schemaRaw}}</textarea>
+      </uib-tab>
+      <uib-tab index="2" heading="{{'title.modelOutput' | translate}}">
+        <textarea id="modelOutput">{{vm.model}}</textarea>
+      </uib-tab>
+      <uib-tab index="3" heading="{{'title.descriptor' | translate}}">
+        <textarea id="descriptorOutput">{{vm.descriptor}}</textarea>
+      </uib-tab>
+    </uib-tabset>
+
+  </div>
+</div>

@@ -1,0 +1,17 @@
+{
+  "product": {
+    "title": "CEDAR JS API"
+  },
+  "menu": {
+    "title": "CEDAR JS API Workbench"
+  },
+  "g": {
+    "github": "Github"
+  },
+  "title": {
+    "schema": "Schema",
+    "schemaRaw": "Raw Schema",
+    "modelOutput": "Model JSON",
+    "descriptor": "Descriptor Object"
+  }
+}
