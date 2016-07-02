@@ -2,20 +2,26 @@
 
   <div ng-class="{'row-fluid': $root.fluid, 'row': !$root.fluid}">
 
-    <textarea style="margin-top:50px; margin-bottom:20px" id="loggerOutput">{{$root.logger.content}}</textarea>
+    <!--<textarea style="margin-top:50px; margin-bottom:20px" id="loggerOutput">{{$root.logger.content}}</textarea>-->
 
-    <uib-tabset active="activeJustified" justified="false">
+    <uib-tabset active="2" justified="false" style="margin-top:50px; margin-bottom:20px">
       <uib-tab index="0" heading="{{'title.schema' | translate}}">
-        <textarea id="schemaOutput">{{vm.schema | json : spacing}}</textarea>
+        <textarea id="schemaOutput">{{vm.schema | json}}</textarea>
       </uib-tab>
       <uib-tab index="1" heading="{{'title.schemaRaw' | translate}}">
         <textarea id="schemaRawOutput">{{vm.schemaRaw}}</textarea>
       </uib-tab>
-      <uib-tab index="2" heading="{{'title.modelOutput' | translate}}">
-        <textarea id="modelOutput">{{vm.model}}</textarea>
+      <uib-tab index="2" heading="{{'title.descriptorField' | translate}}">
+        <textarea id="descriptorFieldOutput" spellcheck="false">{{vm.descriptorField | json}}</textarea>
       </uib-tab>
-      <uib-tab index="3" heading="{{'title.descriptor' | translate}}">
-        <textarea id="descriptorOutput">{{vm.descriptor}}</textarea>
+      <uib-tab index="3" heading="{{'title.descriptorElement' | translate}}">
+        <textarea id="descriptorElementOutput" spellcheck="false">{{vm.descriptorElement | json}}</textarea>
+      </uib-tab>
+      <uib-tab index="4" heading="{{'title.descriptorTemplate' | translate}}">
+        <textarea id="descriptorTemplateOutput" spellcheck="false">{{vm.descriptorTemplate | json}}</textarea>
+      </uib-tab>
+      <uib-tab index="5" heading="{{'title.modelOutput' | translate}}">
+        <textarea id="modelOutput">{{vm.model}}</textarea>
       </uib-tab>
     </uib-tabset>
 

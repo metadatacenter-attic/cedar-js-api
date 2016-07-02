@@ -5,9 +5,9 @@
       .module('cedarJsApiApp')
       .controller('MainController', MainController);
 
-  MainController.$inject = ['DataService', 'RestCallBuilder', 'UrlService', 'LoggerService'];
+  MainController.$inject = ['DataService', 'LoggerService'];
 
-  function MainController(DataService, RestCallBuilder, UrlService, LoggerService) {
+  function MainController(DataService, LoggerService) {
 
     var vm = this;
 
@@ -19,18 +19,24 @@
     });
 
     DataService.loadSchema().then(function (loadedData) {
-      console.log(loadedData);
       vm.schema = loadedData.data;
       LoggerService.log("Schema loaded");
 
       var fb = new FieldBuilder();
-      fb.initialize(vm.schema, "/definitions/templateField/asd");
+      fb.initialize(vm.schema, "/definitions/templateField");
+      vm.descriptorField = fb.getDescriptor();
 
-      //var eb = new ElementBuilder();
-      //eb.initialize(vm.schema, "/definitions/templateElement");
+      //var cedarField = fb.buildEmptyField();
+      //cedarField....
 
-      //var tb = new TemplateBuilder();
-      //tb.initialize(vm.schema, "/definitions/template");
+      var eb = new ElementBuilder();
+      eb.initialize(vm.schema, "/definitions/templateElement");
+      vm.descriptorElement = eb.getDescriptor();
+
+      var tb = new TemplateBuilder();
+      tb.initialize(vm.schema, "/definitions/template");
+      vm.descriptorTemplate = tb.getDescriptor();
+
     });
 
 

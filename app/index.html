@@ -22,10 +22,17 @@
 <div ng-include="'views/fragments/navbar.html'"></div>
 <div ng-view></div>
 
+<script src="lib/json-schema.js"></script>
+<script src="lib/json-util.js"></script>
+<script src="lib/schema-parsing-context.js"></script>
+<script src="lib/array-descriptor.js"></script>
+<script src="lib/string-descriptor.js"></script>
+<script src="lib/boolean-descriptor.js"></script>
+<script src="lib/object-descriptor.js"></script>
 <script src="lib/generic-builder.js"></script>
 <script src="lib/field-builder.js"></script>
-<!--<script src="lib/element-builder.js"></script>
-<script src="lib/template-builder.js"></script>-->
+<script src="lib/element-builder.js"></script>
+<script src="lib/template-builder.js"></script>
 
 
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -34,7 +41,8 @@
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
 <script src="bower_components/angular-translate/angular-translate.min.js"></script>
-<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+<script
+    src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 
 <script src="scripts/app.js"></script>
