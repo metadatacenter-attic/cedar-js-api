@@ -26,16 +26,17 @@
       fb.initialize(vm.schema, "/definitions/templateField");
       vm.descriptorField = fb.getDescriptor();
 
-      //var cedarField = fb.buildEmptyField();
-      //cedarField....
+       var eb = new ElementBuilder();
+       eb.initialize(vm.schema, "/definitions/templateElement");
+       vm.descriptorElement = eb.getDescriptor();
 
-      var eb = new ElementBuilder();
-      eb.initialize(vm.schema, "/definitions/templateElement");
-      vm.descriptorElement = eb.getDescriptor();
+       var tb = new TemplateBuilder();
+       tb.initialize(vm.schema, "/definitions/template");
+       vm.descriptorTemplate = tb.getDescriptor();
 
-      var tb = new TemplateBuilder();
-      tb.initialize(vm.schema, "/definitions/template");
-      vm.descriptorTemplate = tb.getDescriptor();
+      var cedarField = fb.buildEmptyField();
+
+      vm.model = cedarField;
 
     });
 

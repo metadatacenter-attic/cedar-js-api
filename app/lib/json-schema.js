@@ -2,6 +2,7 @@ JSONSchema = {};
 JSONSchema.ALLOF = 'allOf';
 JSONSchema.REF = '$ref';
 JSONSchema.PROPERTIES = 'properties';
+JSONSchema.PATTERNPROPERTIES = 'patternProperties';
 JSONSchema.ENUM = 'enum';
 JSONSchema.MINLENGTH = 'minLength';
 JSONSchema.MINITEMS = 'minItems';

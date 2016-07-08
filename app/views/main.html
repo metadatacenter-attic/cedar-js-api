@@ -4,7 +4,7 @@
 
     <!--<textarea style="margin-top:50px; margin-bottom:20px" id="loggerOutput">{{$root.logger.content}}</textarea>-->
 
-    <uib-tabset active="2" justified="false" style="margin-top:50px; margin-bottom:20px">
+    <uib-tabset active="5" justified="false" style="margin-top:50px; margin-bottom:20px">
       <uib-tab index="0" heading="{{'title.schema' | translate}}">
         <textarea id="schemaOutput">{{vm.schema | json}}</textarea>
       </uib-tab>
@@ -21,7 +21,7 @@
         <textarea id="descriptorTemplateOutput" spellcheck="false">{{vm.descriptorTemplate | json}}</textarea>
       </uib-tab>
       <uib-tab index="5" heading="{{'title.modelOutput' | translate}}">
-        <textarea id="modelOutput">{{vm.model}}</textarea>
+        <textarea id="modelOutput">{{vm.model | json}}</textarea>
       </uib-tab>
     </uib-tabset>
 

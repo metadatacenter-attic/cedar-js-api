@@ -42,10 +42,10 @@ GenericBuilder.prototype.initialize = function (schemaObject, jsonPointer) {
 };
 
 GenericBuilder.prototype.buildObjectDescriptor = function (schema, parsingContext) {
-  console.log("-------------------------------------buildObjectDescriptor--------------------------------------------");
-  console.log(parsingContext.getSourcePath());
-  console.log(parsingContext.getTargetPath());
-  console.log(schema);
+  //console.log("-------------------------------------buildObjectDescriptor--------------------------------------------");
+  //console.log(parsingContext.getSourcePath());
+  //console.log(parsingContext.getTargetPath());
+  //console.log(schema);
 
   var newParsingContext = parsingContext.clone();
 
@@ -54,7 +54,7 @@ GenericBuilder.prototype.buildObjectDescriptor = function (schema, parsingContex
     newParsingContext.addSource(JSONSchema.REF);
     return this.buildObjectDescriptor(subSchema, newParsingContext);
   } else if (schema.hasOwnProperty(JSONSchema.ALLOF)) {
-    var objectDescriptor = new ObjectDescriptor();
+    var objectDescriptor = new ObjectDescriptor(false);
     var schemaList = schema[JSONSchema.ALLOF];
     var descriptorList = [];
     for (var i = 0; i < schemaList.length; i++) {
@@ -65,7 +65,7 @@ GenericBuilder.prototype.buildObjectDescriptor = function (schema, parsingContex
     for (var i = 0; i < descriptorList.length; i++) {
       var od = descriptorList[i];
       var fields = od.getFields();
-      for(var pn in fields) {
+      for (var pn in fields) {
         objectDescriptor.addNamedDescriptor(pn, fields[pn]);
       }
       objectDescriptor.addRequiredFields(od.getRequiredFields());
@@ -73,12 +73,25 @@ GenericBuilder.prototype.buildObjectDescriptor = function (schema, parsingContex
     return objectDescriptor;
   } else if (schema.hasOwnProperty(JSONSchema.TYPE)) {
     var pType = schema[JSONSchema.TYPE];
+    var nullable = false;
+    if (JSONUtil.isArray(pType)) {
+      var realType = null;
+      for (var i = 0; i < pType.length; i++) {
+        var oneType = pType[i];
+        if (oneType === 'null') {
+          nullable = true;
+        } else {
+          realType = oneType;
+        }
+      }
+      pType = realType;
+    }
     if (pType == JSONSchema.TYPES.STRING) {
-      return new StringDescriptor(schema);
+      return new StringDescriptor(schema, nullable);
     } else if (pType == JSONSchema.TYPES.BOOLEAN) {
-      return new BooleanDescriptor(schema);
+      return new BooleanDescriptor(schema, nullable);
     } else if (pType == JSONSchema.TYPES.ARRAY) {
-      var arrayDescriptor = new ArrayDescriptor(schema);
+      var arrayDescriptor = new ArrayDescriptor(schema, nullable);
       var itemsOrItem = schema[JSONSchema.ITEMS];
       if (JSONUtil.isArray(itemsOrItem)) {
         for (var i = 0; i < itemsOrItem.length; i++) {
@@ -91,7 +104,7 @@ GenericBuilder.prototype.buildObjectDescriptor = function (schema, parsingContex
       }
       return arrayDescriptor;
     } else if (pType == JSONSchema.TYPES.OBJECT) {
-      var objectDescriptor = new ObjectDescriptor();
+      var objectDescriptor = new ObjectDescriptor(nullable);
       if (schema.hasOwnProperty(JSONSchema.PROPERTIES)) {
         var properties = schema[JSONSchema.PROPERTIES];
         for (var pName in properties) {
@@ -102,6 +115,15 @@ GenericBuilder.prototype.buildObjectDescriptor = function (schema, parsingContex
         }
         if (schema.hasOwnProperty(JSONSchema.REQUIRED)) {
           objectDescriptor.addRequiredFields(schema[JSONSchema.REQUIRED]);
+        }
+      }
+      if (schema.hasOwnProperty(JSONSchema.PATTERNPROPERTIES)) {
+        var patternProperties = schema[JSONSchema.PATTERNPROPERTIES];
+        for (var pattern in patternProperties) {
+          var p = patternProperties[pattern];
+          newParsingContext = parsingContext.clone().addSource(JSONSchema.PATTERNPROPERTIES).addSource(pattern);
+          var newProp = this.buildObjectDescriptor(p, newParsingContext);
+          objectDescriptor.addPatternDescriptor(pattern, newProp);
         }
       }
       return objectDescriptor;
