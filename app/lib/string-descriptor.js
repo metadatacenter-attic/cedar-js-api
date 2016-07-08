@@ -1,7 +1,8 @@
 /** @constructor */
-function StringDescriptor(scope) {
+function StringDescriptor(scope, nullable) {
   this.class = 'StringDescriptor';
   this.type = JSONSchema.TYPES.STRING;
+  this.nullable = nullable;
   if (scope.hasOwnProperty(JSONSchema.ENUM)) {
     this.validValues = scope[JSONSchema.ENUM];
   }

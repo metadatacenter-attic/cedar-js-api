@@ -1,7 +1,8 @@
 /** @constructor */
-function ArrayDescriptor(scope) {
+function ArrayDescriptor(scope, nullable) {
   this.class = 'ArrayDescriptor';
   this.type = JSONSchema.TYPES.ARRAY;
+  this.nullable = nullable;
   if (scope.hasOwnProperty(JSONSchema.MINITEMS)) {
     this.minItems = scope[JSONSchema.MINITEMS];
   }

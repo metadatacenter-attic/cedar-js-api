@@ -1,7 +1,10 @@
 /** @constructor */
-function ObjectDescriptor() {
+function ObjectDescriptor(nullable) {
   this.class = 'ObjectDescriptor';
+  this.type = JSONSchema.TYPES.OBJECT;
+  this.nullable = nullable;
   this.fields = {};
+  this.patternFields = {};
   this.requiredFieldsNameMap = {};
   this.requiredFields = [];
   Object.defineProperty(this, 'requiredFieldsNameMap', {enumerable: false});
@@ -9,6 +12,10 @@ function ObjectDescriptor() {
 
 ObjectDescriptor.prototype.addNamedDescriptor = function (name, descriptor) {
   this.fields[name] = descriptor;
+};
+
+ObjectDescriptor.prototype.addPatternDescriptor = function (pattern, descriptor) {
+  this.patternFields[pattern] = descriptor;
 };
 
 ObjectDescriptor.prototype.addRequiredFields = function (fieldNameList) {
